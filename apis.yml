@@ -7,10 +7,9 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Subscription Billing
-  - Email Marketing
   - Automation
-  - API
+  - Email Marketing
+  - Subscription Billing
 url: >-
   https://raw.githubusercontent.com/api-evangelist/pabbly/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -24,9 +23,9 @@ apis:
       Pabbly Subscriptions.
     humanURL: https://developer.pabbly.com/
     tags:
-      - Subscriptions
       - Billing
       - Payments
+      - Subscriptions
     properties:
       - type: Documentation
         url: https://developer.pabbly.com/
