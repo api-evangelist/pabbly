@@ -50,6 +50,18 @@ common:
     url: https://www.pabbly.com/terms-conditions/
   - type: Privacy Policy
     url: https://www.pabbly.com/privacy-policy/
+  - type: Integrations
+    url: https://www.pabbly.com/marketplace/
+integrations:
+  - name: Connect
+  - name: Pabbly Plus
+  - name: Group 1
+  - name: PSB
+  - name: pch
+  - name: PEM
+  - name: PFB
+  - name: ph
+  - name: arrow
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
