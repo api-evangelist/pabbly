@@ -38,7 +38,7 @@ common:
     url: https://developer.pabbly.com/
   - type: Website
     url: https://www.pabbly.com/
-  - type: Sign Up
+  - type: SignUp
     url: https://www.pabbly.com/register/
   - type: Login
     url: https://www.pabbly.com/login/
@@ -46,9 +46,9 @@ common:
     url: https://www.pabbly.com/pricing/
   - type: Support
     url: https://www.pabbly.com/support/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://www.pabbly.com/terms-conditions/
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://www.pabbly.com/privacy-policy/
   - type: Integrations
     url: https://www.pabbly.com/marketplace/
