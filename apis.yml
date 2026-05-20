@@ -32,6 +32,10 @@ apis:
       - type: Reference
         url: https://developer.pabbly.com/reference
 common:
+  - type: GitHubOrganization
+    url: https://github.com/Pabbly
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/pabbly
   - type: Portal
     url: https://developer.pabbly.com/
   - type: Documentation
