@@ -32,6 +32,8 @@ apis:
       - type: Reference
         url: https://developer.pabbly.com/reference
 common:
+  - type: DomainSecurity
+    url: security/pabbly-domain-security.yml
   - type: GitHubOrganization
     url: https://github.com/Pabbly
   - type: LinkedIn
@@ -56,6 +58,8 @@ common:
     url: https://www.pabbly.com/privacy-policy/
   - type: Integrations
     url: https://www.pabbly.com/marketplace/
+  - url: https://www.pabbly.com/blog/feed/
+    type: Blog
 integrations:
   - name: Connect
   - name: Pabbly Plus
