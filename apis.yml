@@ -1,87 +1,311 @@
 aid: pabbly
 name: Pabbly
 description: >-
-  Pabbly provides subscription billing, email marketing, form building, and
-  workflow automation tools. The Pabbly API allows integration with subscription
-  management, email, and automation features.
+  Pabbly is an Indian SaaS company selling a suite of marketing and sales
+  software as one-time lifetime deals as well as monthly plans: Pabbly Connect
+  (workflow automation), Pabbly Subscription Billing (recurring billing and
+  invoicing), Pabbly Email Marketing, Pabbly Chatflow (WhatsApp Business
+  messaging), Pabbly Form Builder, Pabbly Hook (an inbound webhook gateway) and
+  Pabbly Email Verification. Its developer platform at apidocs.pabbly.com
+  documents five REST APIs and 173 endpoints, all keyed on HTTP Basic or Bearer
+  credentials generated from the account dashboard, plus a sixth Connect Platform
+  API distributed only through a first-party npm SDK. Pabbly Subscription Billing
+  emits 23 webhook event types, and Pabbly Connect ships a beta hosted MCP server
+  that exposes a customer's own workflow actions as agent tools.
 type: Index
 accessModel:
   pricing: freemium
-  onboarding: unknown
+  onboarding: self-service
   trial: false
   try_now: false
-  public: false
+  public: true
   label: Freemium
-  confidence: medium
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
+    - plans
+    - https://buy.pabbly.com/content/pabbly-plus-pricing.md
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pabbly.png
 tags:
   - Automation
   - Email Marketing
   - Subscription Billing
+  - Billing
+  - Payments
+  - Webhooks
+  - Messaging
+  - WhatsApp
+  - Email Verification
+  - Forms
+  - No-Code
+  - SaaS
 url: >-
   https://raw.githubusercontent.com/api-evangelist/pabbly/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-04-28'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
   - aid: pabbly:pabbly-subscriptions
-    name: Pabbly Subscriptions API
+    name: Pabbly Subscription Billing API
     description: >-
-      API for managing subscriptions, billing, plans, and customers in
-      Pabbly Subscriptions.
-    humanURL: https://developer.pabbly.com/
+      REST API for Pabbly Subscription Billing — 95 documented operations across
+      customers, subscriptions, products, plans, multiplans, coupons, invoices,
+      payment methods, transactions and refunds, add-ons, licenses, affiliate
+      commissions, credits, custom fields, checkout pages, the client portal and
+      payment gateways. HTTP Basic auth with an API Key and Secret Key.
+    humanURL: https://apidocs.pabbly.com/subscription-billing/reference
+    baseURL: https://payments.pabbly.com/api/v1
     tags:
       - Billing
       - Payments
       - Subscriptions
+      - Invoicing
     properties:
       - type: Documentation
-        url: https://developer.pabbly.com/
-      - type: Reference
-        url: https://developer.pabbly.com/reference
+        url: https://apidocs.pabbly.com/subscription-billing/reference
+      - type: APIReference
+        url: https://apidocs.pabbly.com/subscription-billing/reference
+      - type: GettingStarted
+        url: https://apidocs.pabbly.com/subscription-billing/reference/guides/overview
+      - type: Authentication
+        url: https://apidocs.pabbly.com/subscription-billing/reference/guides/authentication
+      - type: Webhooks
+        url: asyncapi/pabbly-subscription-billing-webhooks.yml
+      - type: AgentSkill
+        url: skills/pabbly-subscription-lifecycle.md
+      - type: Components
+        url: components/pabbly-components.yml
+  - aid: pabbly:pabbly-hook
+    name: Pabbly Hook API
+    description: >-
+      REST API for Pabbly Hook, an inbound webhook gateway that receives, logs,
+      filters, transforms and forwards webhook requests. 21 documented operations
+      across folders, connections, transformations, requests and events. HTTP
+      Basic auth with an API Key and Secret Key.
+    humanURL: https://apidocs.pabbly.com/hook/reference
+    baseURL: https://hook.pabbly.com/api/v1
+    tags:
+      - Webhooks
+      - Automation
+      - Integration
+    properties:
+      - type: Documentation
+        url: https://apidocs.pabbly.com/hook/reference
+      - type: APIReference
+        url: https://apidocs.pabbly.com/hook/reference
+      - type: GettingStarted
+        url: https://apidocs.pabbly.com/hook/reference/guides/overview
+      - type: Authentication
+        url: https://apidocs.pabbly.com/hook/reference/guides/authentication
+  - aid: pabbly:pabbly-chatflow
+    name: Pabbly Chatflow API
+    description: >-
+      REST API for Pabbly Chatflow, a WhatsApp Business messaging platform. 33
+      documented operations covering 18 message shapes on a single POST /messages
+      endpoint, plus templates, broadcasts, contacts, tags, media and product
+      catalogs. Bearer token auth.
+    humanURL: https://apidocs.pabbly.com/chatflow/reference
+    baseURL: https://chatflow.pabbly.com/api/v1
+    tags:
+      - Messaging
+      - WhatsApp
+      - Marketing
+    properties:
+      - type: Documentation
+        url: https://apidocs.pabbly.com/chatflow/reference
+      - type: APIReference
+        url: https://apidocs.pabbly.com/chatflow/reference
+      - type: GettingStarted
+        url: https://apidocs.pabbly.com/chatflow/reference/guides/overview
+      - type: Authentication
+        url: https://apidocs.pabbly.com/chatflow/reference/guides/authentication
+      - type: AgentSkill
+        url: skills/pabbly-whatsapp-broadcast.md
+  - aid: pabbly:pabbly-email-marketing
+    name: Pabbly Email Marketing API
+    description: >-
+      REST API for Pabbly Email Marketing — 23 documented operations across
+      subscribers (upsert semantics on create), subscriber lists and segments,
+      campaigns with asynchronous batch sending, custom fields and delivery
+      servers. Bearer token auth. The only Pabbly API on v2.
+    humanURL: https://apidocs.pabbly.com/email-marketing/reference
+    baseURL: https://emails.pabbly.com/api/v2
+    tags:
+      - Email Marketing
+      - Campaigns
+      - Subscribers
+    properties:
+      - type: Documentation
+        url: https://apidocs.pabbly.com/email-marketing/reference
+      - type: APIReference
+        url: https://apidocs.pabbly.com/email-marketing/reference
+      - type: GettingStarted
+        url: https://apidocs.pabbly.com/email-marketing/reference/guides/overview
+      - type: Authentication
+        url: https://apidocs.pabbly.com/email-marketing/reference/guides/authentication
+      - type: AgentSkill
+        url: skills/pabbly-verify-and-send-email-campaign.md
+  - aid: pabbly:pabbly-email-verification
+    name: Pabbly Email Verification API
+    description: >-
+      REST API for Pabbly Email Verification. A single operation,
+      POST /email-lists/verify-single, returning a deliverability verdict plus
+      accept_all, disposable, spamtrap, role and free_email risk flags. HTTP
+      Basic auth with an API Key and Secret Key.
+    humanURL: https://apidocs.pabbly.com/email-verification/reference
+    baseURL: https://verify.pabbly.com/api/v1
+    tags:
+      - Email Verification
+      - Deliverability
+      - Data Quality
+    properties:
+      - type: Documentation
+        url: https://apidocs.pabbly.com/email-verification/reference
+      - type: APIReference
+        url: https://apidocs.pabbly.com/email-verification/reference
+      - type: GettingStarted
+        url: https://apidocs.pabbly.com/email-verification/reference/guides/overview
+      - type: Authentication
+        url: https://apidocs.pabbly.com/email-verification/reference/guides/authentication
+  - aid: pabbly:pabbly-connect-platform
+    name: Pabbly Connect Platform API
+    description: >-
+      Backend-to-backend API that lets a product use Pabbly Connect as its
+      connection manager — search a catalog of 1,000+ apps, mint hosted OAuth or
+      credential request links for an end customer, and vend fresh access tokens.
+      Bearer tenant key prefixed pk_live_ plus a required x-user-email header. Not
+      documented on the developer portal; the only public reference is the
+      first-party npm SDK.
+    humanURL: https://www.npmjs.com/package/@pabbly/connect-platform
+    baseURL: https://connect.pabbly.com/platform/v1
+    tags:
+      - Automation
+      - OAuth
+      - Integration
+      - Connectivity
+    properties:
+      - type: SDKs
+        url: https://www.npmjs.com/package/@pabbly/connect-platform
+      - type: SourceCode
+        url: https://www.npmjs.com/package/@pabbly/connect-platform
+  - aid: pabbly:pabbly-connect-mcp
+    name: Pabbly Connect MCP Server
+    description: >-
+      Beta hosted MCP server that exposes a Pabbly Connect user's own workflow
+      action steps as agent tools. Tools are authored inside Pabbly Connect
+      ("Add to MCP Server"), and the server URL is minted per account from
+      Pabbly Connect MCP Settings, so no fixed public endpoint or tool catalog is
+      published. A first-party stdio bridge is on npm for clients that cannot
+      speak SSE.
+    humanURL: https://www.pabbly.com/how-to-use-pabbly-connect-mcp-server-step-by-step-guide/
+    tags:
+      - MCP
+      - Agents
+      - Automation
+    properties:
+      - type: MCPServer
+        url: mcp/pabbly-mcp.yml
+      - type: Documentation
+        url: https://www.pabbly.com/how-to-use-pabbly-connect-mcp-server-step-by-step-guide/
 common:
+  - type: Website
+    url: https://www.pabbly.com/
+  - type: DeveloperPortal
+    url: https://apidocs.pabbly.com/
+  - type: Portal
+    url: https://apidocs.pabbly.com/
+  - type: Documentation
+    url: https://apidocs.pabbly.com/
+  - type: APIReference
+    url: https://apidocs.pabbly.com/subscription-billing/reference
+  - type: GettingStarted
+    url: https://apidocs.pabbly.com/subscription-billing/reference/guides/overview
+  - type: Authentication
+    url: authentication/pabbly-authentication.yml
+  - type: LLMsTxt
+    url: llms/pabbly-llms.txt
+  - type: MCPServer
+    url: mcp/pabbly-mcp.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Packages
+    url: packages/pabbly-packages.yml
+  - type: SDKs
+    url: packages/pabbly-packages.yml
+  - type: Webhooks
+    url: asyncapi/pabbly-subscription-billing-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/pabbly-error-codes.yml
+  - type: Conventions
+    url: conventions/pabbly-conventions.yml
+  - type: DataModel
+    url: data-model/pabbly-data-model.yml
+  - type: Components
+    url: components/pabbly-components.yml
+  - type: Lifecycle
+    url: lifecycle/pabbly-lifecycle.yml
+  - type: Conformance
+    url: conformance/pabbly-conformance.yml
+  - type: RateLimits
+    url: rate-limits/pabbly-rate-limits.yml
+  - type: Plans
+    url: plans/pabbly-plans-pricing.yml
   - type: DomainSecurity
     url: security/pabbly-domain-security.yml
+  - type: VulnerabilityDisclosure
+    url: security/pabbly-vulnerability-disclosure.yml
+  - type: Security
+    url: https://www.pabbly.com/security-vulnerability-disclosure/
+  - type: TrustCenter
+    url: security/pabbly-trust-center.yml
+  - type: Compliance
+    url: https://www.pabbly.com/security/
+  - type: Postman
+    url: https://www.postman.com/pabbly/workspace/pabbly-team-s-public-workspace/overview
+  - type: Roadmap
+    url: https://pabbly.featureos.app/roadmap
   - type: GitHubOrganization
     url: https://github.com/Pabbly
   - type: LinkedIn
     url: https://www.linkedin.com/company/pabbly
-  - type: Portal
-    url: https://developer.pabbly.com/
-  - type: Documentation
-    url: https://developer.pabbly.com/
-  - type: Website
-    url: https://www.pabbly.com/
-  - type: Signup
-    url: https://www.pabbly.com/register/
-  - type: Login
-    url: https://www.pabbly.com/login/
-  - type: Pricing
-    url: https://www.pabbly.com/pricing/
   - type: Support
-    url: https://www.pabbly.com/support/
+    url: https://www.pabbly.com/contact-us/
+  - type: Community
+    url: https://forum.pabbly.com/
+  - type: Blog
+    url: https://www.pabbly.com/blog/
+  - type: BlogRSS
+    url: https://www.pabbly.com/blog/feed/
+  - type: SignUp
+    url: https://accounts.pabbly.com/signup
+  - type: Login
+    url: https://accounts.pabbly.com/login
+  - type: Pricing
+    url: https://buy.pabbly.com/pabbly-plus/
   - type: TermsOfService
     url: https://www.pabbly.com/terms-conditions/
   - type: PrivacyPolicy
     url: https://www.pabbly.com/privacy-policy/
   - type: Integrations
-    url: https://www.pabbly.com/marketplace/
-  - url: https://www.pabbly.com/blog/feed/
-    type: Blog
+    url: https://www.pabbly.com/connect/integrations/
+  - type: BrandAssets
+    url: https://www.pabbly.com/brand-assets/
+  - type: About
+    url: https://www.pabbly.com/about-us/
 integrations:
   - name: Connect
   - name: Pabbly Plus
-  - name: Group 1
   - name: PSB
   - name: pch
   - name: PEM
   - name: PFB
   - name: ph
-  - name: arrow
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v1
