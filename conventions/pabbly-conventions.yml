@@ -1,0 +1,146 @@
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/subscription-billing/reference/guides/overview
+sources:
+  - https://apidocs.pabbly.com/pabbly/subscription-billing/llms.txt
+  - https://apidocs.pabbly.com/pabbly/hook/llms.txt
+  - https://apidocs.pabbly.com/pabbly/chatflow/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-verification/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-marketing/llms.txt
+  - npm @pabbly/connect-platform@1.0.0
+provider: Pabbly
+providerId: pabbly
+summary: >-
+  Pabbly publishes one shared set of REST conventions across five products at
+  apidocs.pabbly.com: JSON in and out, Content-Type application/json on every
+  request with a body, path parameters interpolated into the URL, and a plain
+  status-code error model. The conventions are consistent across products but
+  thin — there is no idempotency mechanism, no documented pagination contract,
+  no request-id tracing header, and no rate-limit response headers.
+transport:
+  protocol: https
+  content_type: application/json
+  request_body: JSON
+  response_body: JSON
+  note: >-
+    "Send Content-Type: application/json on every request that has a body." —
+    verbatim from every product overview.
+authentication:
+  style: per-product
+  detail: see authentication/pabbly-authentication.yml
+  summary: >-
+    HTTP Basic (API Key : Secret Key) on Subscription Billing, Hook and Email
+    Verification; Bearer token on Chatflow and Email Marketing; Bearer pk_live_
+    tenant key plus x-user-email on Connect Platform.
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No idempotency key, request key, or replay-safety mechanism appears anywhere
+    in the five product guides or in the 173 documented endpoints. Retry guidance
+    is limited to "5xx — Server error, retry with backoff", with no protection
+    against a duplicated POST /subscription or POST /invoice/recordpayment.
+  consequence: >-
+    On a billing API this is a material gap: a retried create-subscription or
+    record-payment call has no documented dedupe boundary.
+pagination:
+  documented: false
+  evidence: >-
+    List operations (GET /customers, GET /subscriptions, GET /invoices,
+    GET /products, GET /subscribers, GET /campaigns) are documented without a
+    published page/limit/cursor contract or a response envelope describing total
+    counts.
+  exception:
+    api: pabbly:pabbly-connect-platform
+    style: page-number
+    params:
+      - page
+      - limit
+    response_field: pagination
+    source: npm @pabbly/connect-platform@1.0.0 — listApps({search, page, limit}), listConnections({appId, page, limit})
+response_envelope:
+  documented_success:
+    shape: '{"success": true, "data": {...}}'
+    source: product overview guides
+  observed_success:
+    shape: '{"status": "success", "message": "...", "data": {...}}'
+    source: >-
+      every example response body in the Subscription Billing reference, e.g.
+      GET /customer/{customer_id}
+  divergence: >-
+    The overview guide documents a success envelope keyed `success`, while every
+    worked example in the same reference returns `status`/`message`/`data`. A
+    client written from the guide will not match the payloads the guide itself
+    prints.
+errors:
+  envelope: '{"success": false, "error": "A human-readable explanation"}'
+  format: proprietary
+  rfc9457: false
+  detail: see errors/pabbly-error-codes.yml
+field_expansion:
+  supported: false
+sparse_fields:
+  supported: false
+metadata:
+  custom_fields:
+    supported: true
+    api: pabbly:pabbly-subscriptions
+    operations:
+      - GET /api/v1/customfields/{plan_id}
+      - PUT /subscription/custom-fields/{subscription_id}
+    note: Plan-scoped custom fields, not a free-form metadata object.
+request_id_tracing:
+  supported: false
+  evidence: No request-id / correlation-id header is documented on any product.
+versioning:
+  style: uri-path
+  current:
+    - api: pabbly:pabbly-subscriptions
+      version: v1
+    - api: pabbly:pabbly-hook
+      version: v1
+    - api: pabbly:pabbly-chatflow
+      version: v1
+    - api: pabbly:pabbly-email-verification
+      version: v1
+    - api: pabbly:pabbly-email-marketing
+      version: v2
+    - api: pabbly:pabbly-connect-platform
+      version: v1
+  detail: see lifecycle/pabbly-lifecycle.yml
+rate_limit_signaling:
+  headers_documented: false
+  status_on_exhaustion: 429
+  retry_after:
+    honored_by_sdk: true
+    scope: pabbly:pabbly-connect-platform
+    source: >-
+      npm @pabbly/connect-platform@1.0.0 reads res.headers.get('retry-after') and
+      surfaces it as RateLimitedError.retryAfter
+  detail: see rate-limits/pabbly-rate-limits.yml
+agent_affordances:
+  llms_txt: https://apidocs.pabbly.com/llms.txt
+  markdown_content_negotiation:
+    supported: true
+    mechanism:
+      - Append `.md` to any docs URL
+      - Send `Accept: text/markdown` on the canonical URL
+    verified: >-
+      GET https://apidocs.pabbly.com/subscription-billing/reference/customers/get-single-customer-via-customer-id
+      with Accept: text/markdown returned 200 text/markdown
+    note: >-
+      The `.md` suffix form advertised in llms.txt returned the HTML shell on the
+      hosts probed; the Accept header form is the one that works.
+  per_section_urls:
+    - '/{product}/reference/{tagSlug}/{endpointSlug}'
+    - '/{product}/reference/{tagSlug}/object'
+    - '/{product}/reference/guides/{docSlug}'
+cross_links:
+  authentication: authentication/pabbly-authentication.yml
+  errors: errors/pabbly-error-codes.yml
+  lifecycle: lifecycle/pabbly-lifecycle.yml
+  rate_limits: rate-limits/pabbly-rate-limits.yml
+  webhooks: asyncapi/pabbly-subscription-billing-webhooks.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

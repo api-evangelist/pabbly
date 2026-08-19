@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  generated from the operations Pabbly documents at apidocs.pabbly.com (read via
+  the per-product llms.txt documents and Accept: text/markdown endpoint pages)
+provider: Pabbly
+providerId: pabbly
+note: >-
+  Pabbly publishes no OpenAPI document, so these skills are grounded in the
+  documented HTTP method + path + required body fields of real, published
+  operations rather than in operationIds. Nothing here is invented: every
+  operation, field name and enum value below appears in Pabbly's own reference.
+  No provider-published Agent Skill or AGENTS.md was found.
+skill_count: 3
+skills:
+  - name: pabbly-subscription-lifecycle
+    file: pabbly-subscription-lifecycle.md
+    api: pabbly:pabbly-subscriptions
+    base_url: https://payments.pabbly.com/api/v1
+    description: >-
+      Create, inspect, change and cancel a subscription in Pabbly Subscription
+      Billing, including the customer record it hangs off.
+    operation_count: 13
+  - name: pabbly-verify-and-send-email-campaign
+    file: pabbly-verify-and-send-email-campaign.md
+    apis:
+      - pabbly:pabbly-email-verification
+      - pabbly:pabbly-email-marketing
+    base_urls:
+      - https://verify.pabbly.com/api/v1
+      - https://emails.pabbly.com/api/v2
+    description: >-
+      Verify an address, upsert the subscriber, add them to a list, and send a
+      campaign to that list.
+    operation_count: 15
+  - name: pabbly-whatsapp-broadcast
+    file: pabbly-whatsapp-broadcast.md
+    api: pabbly:pabbly-chatflow
+    base_url: https://chatflow.pabbly.com/api/v1
+    description: >-
+      Send a WhatsApp template message or run a broadcast to contact lists
+      through Pabbly Chatflow.
+    operation_count: 14
+not_covered:
+  - api: pabbly:pabbly-hook
+    reason: >-
+      Pabbly Hook manages an inbound webhook gateway (folders, connections,
+      transformations, request and event logs). It is an operations surface
+      rather than a customer-facing flow, so no marquee skill was written.
+  - api: pabbly:pabbly-connect-platform
+    reason: >-
+      Documented only inside the npm SDK; the forum guide it points at returns
+      404, so there is no public reference to ground a skill against.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

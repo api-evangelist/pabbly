@@ -1,0 +1,41 @@
+generated: '2026-08-13'
+method: probed
+source: https://pabbly.featureos.app/changelog
+provider: Pabbly
+providerId: pabbly
+scheme: product-changelog
+platform: FeatureOS
+url: https://pabbly.featureos.app/changelog
+http_status: 200
+entries: []
+entry_count: 0
+readable: false
+note: >-
+  Pabbly hosts a product changelog board on FeatureOS at
+  pabbly.featureos.app/changelog. The page returns HTTP 200 but the body is a
+  JavaScript shell — the served HTML contains only repeated "Loading content,
+  please wait..." placeholders, so no dated entry, title or version could be
+  read anonymously. No RSS/Atom feed and no JSON API were found
+  (/changelog.rss, /rss, /feed, /changelog.json all 404; /api/v1/* returned the
+  same SPA shell).
+  Because not one dated entry could be verified, NO `ChangeLog` pointer is
+  emitted in apis.yml — the surface exists but nothing about it is machine
+  readable, and a pointer would credit a changelog this pass never saw.
+also_checked:
+  - url: https://www.pabbly.com/changelog/
+    status: 404
+  - url: https://apidocs.pabbly.com/changelog
+    status: 404
+  - url: https://pabbly.featureos.app/updates
+    status: 404
+  - url: https://forum.pabbly.com/forums/announcements/
+    status: 410
+  - url: https://www.pabbly.com/wp-json/wp/v2/posts
+    status: 401
+    note: >-
+      Pabbly publishes dated "What's New in Pabbly Connect — <month> <year>"
+      posts on its WordPress blog, but the WP REST API is closed (401), so the
+      series could not be enumerated into structured entries.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -4,136 +4,316 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Pabbly
 providerId: pabbly
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://buy.pabbly.com/llms.txt
+sources:
+  - https://buy.pabbly.com/content/pabbly-plus-pricing.md
+  - https://buy.pabbly.com/content/connect-pricing.md
+  - https://buy.pabbly.com/content/connect-onetime-pricing.md
+  - https://buy.pabbly.com/content/chatflow-pricing.md
+  - https://buy.pabbly.com/content/billing-onetime-pricing.md
+  - https://buy.pabbly.com/content/subscriptions.md
+  - https://buy.pabbly.com/content/hook-overview.md
 tags:
   - Automation
   - Email Marketing
   - Subscription Billing
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Pricing
+  - Plans
+description: >-
+  Published Pabbly plans and pricing, read from the machine-readable pricing
+  markdown Pabbly serves on its commerce host (buy.pabbly.com/content/*.md,
+  indexed by buy.pabbly.com/llms.txt). Pabbly sells per-product recurring plans,
+  per-product one-time lifetime deals, and a Pabbly Plus bundle covering every
+  product. API access is not a priced add-on — the REST API and webhooks are
+  bundled into the product plans, and every documented API is usable on the
+  paid tiers of its product.
+provenance_note: >-
+  Replaces a 2026-05-04 bulk-sweep scaffold that carried invented tiers
+  (pabbly-free / pabbly-pro / pabbly-enterprise with placeholder request quotas
+  and "TBD" prices). Pabbly publishes no per-request API pricing and no
+  enterprise tier of that shape; every figure below is quoted from Pabbly's own
+  pricing content.
+api_metering:
+  metered: false
+  note: >-
+    No API call quota, per-request price or API-specific overage is published for
+    any Pabbly API. Product metering is by business unit — Connect by tasks,
+    Chatflow by credits, Subscription Billing by revenue, Email Marketing by
+    subscribers, Hook by events, Form Builder by forms — and API calls are not
+    counted separately.
+plan_count: 13
 plans:
-  - id: pabbly-free
-    name: Free
+  - id: pabbly-plus-free
+    name: Pabbly Plus — FREE
     type: freemium
-    description: Free entry tier for the Pabbly API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    product: All products
+    price: '0.00'
+    currency: USD
+    billing_period: month
+    page: https://buy.pabbly.com/pabbly-plus/
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Pabbly Connect tasks
+        name: connect_tasks
         type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Pabbly Subscriptions API
-  - id: pabbly-pro
-    name: Professional
-    type: paid
-    description: Production tier for Pabbly. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
+        metric: tasks
         limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
         timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Pabbly Subscriptions API
-  - id: pabbly-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Pabbly. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Pabbly Chatflow credits
+        name: chatflow_credits
         type: quota
-        metric: requests
+        metric: credits
+        limit: 100
+        timeFrame: month
+      - label: Subscription Billing revenue
+        name: billing_revenue
+        type: quota
+        metric: usd_revenue
+        limit: 100
+        timeFrame: month
+      - label: Email Marketing subscribers
+        name: em_subscribers
+        type: quota
+        metric: subscribers
+        limit: 100
+      - label: Form Builder forms
+        name: forms
+        type: quota
+        metric: forms
+        limit: 1
+      - label: Pabbly Hook events
+        name: hook_events
+        type: quota
+        metric: events
+        limit: 100
+        timeFrame: month
+    elements:
+      - name: Developer API access on every product
+      - name: Webhooks
+  - id: pabbly-plus-unlimited-yearly
+    name: Pabbly Plus — UNLIMITED (yearly billing)
+    type: paid
+    product: All products
+    price: '69.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '6249'
+    savings: 12% off
+    page: https://buy.pabbly.com/pabbly-plus/
+    elements:
+      - name: Unlimited Connect tasks
+      - name: Unlimited Chatflow credits
+      - name: Unlimited Subscription Billing revenue
+      - name: Unlimited Email Marketing subscribers
+      - name: Unlimited Form Builder forms
+      - name: Unlimited Pabbly Hook events
+      - name: Fair usage policy applies
+  - id: pabbly-plus-unlimited-2yearly
+    name: Pabbly Plus — UNLIMITED (2-year billing)
+    type: paid
+    product: All products
+    price: '65.00'
+    currency: USD
+    billing_period: month
+    billed: 2-yearly
+    price_inr: '5899'
+    savings: 17% off
+  - id: pabbly-plus-unlimited-3yearly
+    name: Pabbly Plus — UNLIMITED (3-year billing)
+    type: paid
+    product: All products
+    price: '59.00'
+    currency: USD
+    billing_period: month
+    billed: 3-yearly
+    price_inr: '5329'
+    savings: 25% off
+  - id: connect-free
+    name: Pabbly Connect — Free
+    type: freemium
+    product: Pabbly Connect
+    price: '0.00'
+    currency: USD
+    page: https://buy.pabbly.com/connect/
+    entries:
+      - label: Tasks
+        name: tasks
+        type: quota
+        metric: tasks
+        limit: 100
+        timeFrame: month
+  - id: connect-standard
+    name: Pabbly Connect — Standard
+    type: paid
+    product: Pabbly Connect
+    price: '16.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '1301'
+    list_price: '19.00'
+    page: https://buy.pabbly.com/connect/
+    entries:
+      - label: Tasks
+        name: tasks
+        type: quota
+        metric: tasks
+        limit: 10000
+        timeFrame: month
+    elements:
+      - name: Internal operations (Filter, Router, Formatter, Iterator, Delay, Code) are not billed as tasks
+      - name: Triggers do not count as tasks
+  - id: connect-unlimited
+    name: Pabbly Connect — Unlimited
+    type: paid
+    product: Pabbly Connect
+    price: '69.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '5949'
+    list_price: '79.00'
+    page: https://buy.pabbly.com/connect/
+    entries:
+      - label: Tasks
+        name: tasks
+        type: quota
+        metric: tasks
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
+  - id: connect-lifetime-ultimate
+    name: Pabbly Connect — Ultimate (one-time lifetime)
+    type: one-time
+    product: Pabbly Connect
+    price: '799.00'
+    currency: USD
+    billing_period: lifetime
+    list_price: '2280.00'
+    page: https://buy.pabbly.com/connect-onetime/
+    entries:
+      - label: Tasks
+        name: tasks
+        type: quota
+        metric: tasks
+        limit: 10000
+        timeFrame: month
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Pabbly Subscriptions API
+      - name: AI Assistant & MCP Servers
+      - name: Multi-Step Workflows
+      - name: 500 CU Units
+      - name: JavaScript & Python Module
+    note: >-
+      This is the lowest tier on which "AI Assistant & MCP Servers" is listed —
+      the MCP surface in mcp/pabbly-mcp.yml is a paid-tier feature, not a
+      free-account one.
+  - id: chatflow-standard
+    name: Pabbly Chatflow — Standard
+    type: paid
+    product: Pabbly Chatflow
+    price: '17.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '1499'
+    list_price: '19.00'
+    page: https://buy.pabbly.com/chatflow/
+    entries:
+      - label: Credits (1 credit = 1 outgoing WhatsApp message)
+        name: credits
+        type: quota
+        metric: credits
+        limit: 10000
+        timeFrame: month
+    elements:
+      - name: Meta conversation charges billed separately at 0% Pabbly markup
+  - id: chatflow-pro
+    name: Pabbly Chatflow — Pro
+    type: paid
+    product: Pabbly Chatflow
+    price: '34.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '3079'
+    list_price: '39.00'
+    page: https://buy.pabbly.com/chatflow/
+    entries:
+      - label: Credits
+        name: credits
+        type: quota
+        metric: credits
+        limit: 20000
+        timeFrame: month
+  - id: chatflow-unlimited
+    name: Pabbly Chatflow — Unlimited
+    type: paid
+    product: Pabbly Chatflow
+    price: '69.00'
+    currency: USD
+    billing_period: month
+    billed: yearly
+    price_inr: '6249'
+    list_price: '79.00'
+    page: https://buy.pabbly.com/chatflow/
+    entries:
+      - label: Credits
+        name: credits
+        type: quota
+        metric: credits
+        limit: -1
+        timeFrame: month
+  - id: billing-lifetime-standard
+    name: Pabbly Subscription Billing — Standard (one-time lifetime)
+    type: one-time
+    product: Pabbly Subscription Billing
+    price: '249.00'
+    currency: USD
+    price_inr: '22399'
+    list_price: '498.00'
+    billing_period: lifetime
+    page: https://buy.pabbly.com/billing-onetime/
+    elements:
+      - name: Unlimited Revenue
+      - name: Unlimited Customers
+      - name: 0% Transaction Fees
+      - name: Developer API & Webhooks
+      - name: Unlimited Payment Gateways
+      - name: Customer Portal
+      - name: 1 Year Customer Support
+      - name: Multi-Tier Affiliate Module — Not Included
+  - id: billing-lifetime-ultimate
+    name: Pabbly Subscription Billing — Ultimate (one-time lifetime)
+    type: one-time
+    product: Pabbly Subscription Billing
+    price: '1298.00'
+    currency: USD
+    price_inr: '115729'
+    list_price: '2596.00'
+    billing_period: lifetime
+    page: https://buy.pabbly.com/billing-onetime/
+    elements:
+      - name: All features from Pro ($699 tier)
+      - name: Multi-Tier Affiliate Module — Included
+      - name: Developer API & Webhooks
+notes:
+  - >-
+    Pabbly Subscription Billing also sells a Pro one-time lifetime tier at
+    $699 / INR 62,899 between Standard and Ultimate.
+  - >-
+    Pabbly Hook has NO standalone plan — it ships only inside the Pabbly Plus
+    bundle. Its API is therefore only reachable by Pabbly Plus customers.
+  - >-
+    Pabbly Email Verification is credit-based with non-expiring credits and
+    custom plans above 5M emails; the per-credit table is not published as
+    markdown.
+  - >-
+    All one-time lifetime deals carry a 30-day money-back guarantee.
+  - >-
+    Prices are the yearly-billing monthly-equivalent figures Pabbly publishes;
+    2-year and 3-year prepay tiers are cheaper (recorded above for Pabbly Plus).
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

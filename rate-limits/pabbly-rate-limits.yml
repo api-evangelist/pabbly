@@ -4,84 +4,88 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Pabbly
 providerId: pabbly
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/subscription-billing/reference/guides/overview
+sources:
+  - https://apidocs.pabbly.com/pabbly/subscription-billing/llms.txt
+  - https://apidocs.pabbly.com/pabbly/hook/llms.txt
+  - https://apidocs.pabbly.com/pabbly/chatflow/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-verification/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-marketing/llms.txt
+  - npm @pabbly/connect-platform@1.0.0
 tags:
-  - Automation
-  - Email Marketing
-  - Subscription Billing
   - Rate Limiting
   - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the Pabbly API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+description: >-
+  Pabbly documents that its APIs can return HTTP 429 but publishes no numeric
+  limit, no window, no burst allowance and no rate-limit response headers for
+  any of the five APIs on apidocs.pabbly.com. The only rate-limit runtime signal
+  found anywhere on the surface is in the first-party Connect Platform SDK, which
+  reads a Retry-After response header.
+provenance_note: >-
+  Replaces a 2026-05-04 bulk-sweep scaffold that asserted invented per-tier
+  limits (10/100/1000 rpm, 1k/100k monthly quotas) and an X-RateLimit-* header
+  family Pabbly does not document. None of that was published by Pabbly.
+limit_count: 0
+limits: []
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
+  limit: null
+  remaining: null
+  reset: null
+  policy: null
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  retryAfter_scope: pabbly:pabbly-connect-platform
+  retryAfter_evidence: >-
+    npm @pabbly/connect-platform@1.0.0 index.js reads
+    res.headers.get('retry-after') and exposes it as RateLimitedError.retryAfter,
+    with the inline comment "429 should be honored via retryAfter by the caller".
+    This is the only published evidence that any Pabbly API emits a rate-limit
+    header; it is not documented on the developer portal.
+  note: >-
+    No X-RateLimit-* or RFC 9331 RateLimit-* family is documented or observed.
+    An agent cannot see how much budget it has left before it is throttled.
 responseCodes:
   throttled: 429
+  throttled_meaning: Too many requests
   quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Pabbly Subscriptions API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Pabbly Subscriptions API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Pabbly Subscriptions API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Pabbly Subscriptions API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Pabbly Subscriptions API
+  serverError: 5xx
+  documented_on:
+    - pabbly:pabbly-subscriptions
+    - pabbly:pabbly-hook
+    - pabbly:pabbly-chatflow
+    - pabbly:pabbly-email-verification
+    - pabbly:pabbly-email-marketing
+coded_limits:
+  - api: pabbly:pabbly-connect-platform
+    code: rate_limited
+    status: 429
+    retryable: true
+    retry_signal: Retry-After header
+    source: npm @pabbly/connect-platform@1.0.0
+    note: >-
+      The SDK explicitly does NOT auto-retry a 429 (only 503 is retried); the
+      caller must honor Retry-After.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Retry guidance
+    description: >-
+      The only retry guidance Pabbly publishes is "5xx | Server error — retry
+      with backoff". No guidance is given for recovering from a 429.
+  - name: Product quotas are not API rate limits
+    description: >-
+      Pabbly meters its products by business unit — Connect tasks, Chatflow
+      credits, Subscription Billing revenue, Email Marketing subscribers, Hook
+      events — and those quotas are documented in plans/pabbly-plans-pricing.yml.
+      They constrain what an integration can do, but they are consumption
+      quotas, not request-rate limits, and exhausting them does not produce a
+      429 in any documented flow.
+gaps:
+  - No published request-rate limit for any of the six Pabbly APIs.
+  - No rate-limit response headers on the five portal-documented APIs.
+  - No documented reset window or burst allowance.
+  - No documented behavior when a product quota (tasks/credits/events) is exhausted.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

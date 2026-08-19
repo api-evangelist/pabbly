@@ -1,0 +1,173 @@
+generated: '2026-08-13'
+method: probed
+source: live GET of /.well-known/* on every Pabbly API, docs and marketing host
+note: >-
+  Every probed path returned 404 on every host. No WellKnown or SecurityTxt
+  pointer is emitted in apis.yml, because nothing here documents a surface the
+  provider actually serves. On docs.pabbly.com, buy.pabbly.com and
+  forum.pabbly.com a 200 was observed for /.well-known/* paths, but the body was
+  the single-page-app HTML shell (Content-Type text/html) rather than a document
+  — recorded as a miss, not a hit.
+hosts:
+  - host: https://www.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://apidocs.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://payments.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://hook.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://chatflow.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://verify.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://emails.pabbly.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://docs.pabbly.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+      - path: /.well-known/security.txt
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+  - host: https://buy.pabbly.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+      - path: /.well-known/security.txt
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+  - host: https://accounts.pabbly.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://forum.pabbly.com
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+      - path: /.well-known/security.txt
+        status: 200
+        result: miss
+        content_type: text/html
+        note: SPA catch-all HTML shell, not a document
+summary:
+  hosts_probed: 11
+  documents_found: 0
+  agent_card_found: false
+  security_txt_found: false
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

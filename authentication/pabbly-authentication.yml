@@ -1,0 +1,107 @@
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/pabbly/subscription-billing/llms.txt
+docs: https://apidocs.pabbly.com/
+provider: Pabbly
+providerId: pabbly
+summary: >-
+  Pabbly uses per-product credentials generated from the account dashboard. Three
+  of the five documented REST APIs use HTTP Basic auth with an API Key as the
+  username and a Secret Key as the password; two use a Bearer token. The sixth
+  API — Connect Platform — uses a Bearer tenant key prefixed pk_live_ plus a
+  required x-user-email header naming the end customer the call acts on. No
+  OAuth 2.0, no OpenID Connect and no mTLS are published anywhere on the surface;
+  every /.well-known/oauth-authorization-server and /.well-known/openid-configuration
+  probe returned 404.
+schemes:
+  - id: subscription-billing-basic
+    api: pabbly:pabbly-subscriptions
+    type: http
+    scheme: basic
+    in: header
+    header: Authorization
+    format: 'Basic <base64(API_KEY:SECRET_KEY)>'
+    credential_source: Pabbly dashboard -> Settings -> API Settings -> Generate the Keys
+    credentials:
+      - name: API Key
+        role: basic username
+      - name: Secret Key
+        role: basic password
+    rotation: Regenerate from Settings -> API Settings -> Generate the Keys
+    docs: https://apidocs.pabbly.com/subscription-billing/reference/guides/authentication
+  - id: hook-basic
+    api: pabbly:pabbly-hook
+    type: http
+    scheme: basic
+    in: header
+    header: Authorization
+    format: 'Basic <base64(API_KEY:SECRET_KEY)>'
+    credential_source: Pabbly dashboard -> Settings -> API Settings -> Generate the Keys
+    docs: https://apidocs.pabbly.com/hook/reference/guides/authentication
+  - id: email-verification-basic
+    api: pabbly:pabbly-email-verification
+    type: http
+    scheme: basic
+    in: header
+    header: Authorization
+    format: 'Basic <base64(API_KEY:SECRET_KEY)>'
+    credential_source: Pabbly dashboard -> Settings -> API -> Generate API Keys
+    docs: https://apidocs.pabbly.com/email-verification/reference/guides/authentication
+  - id: chatflow-bearer
+    api: pabbly:pabbly-chatflow
+    type: http
+    scheme: bearer
+    in: header
+    header: Authorization
+    format: 'Bearer <API_KEY>'
+    credential_source: Pabbly Chatflow -> Settings -> API & Webhooks
+    credentials:
+      - name: API key
+        role: bearer token
+    docs: https://apidocs.pabbly.com/chatflow/reference/guides/authentication
+  - id: email-marketing-bearer
+    api: pabbly:pabbly-email-marketing
+    type: http
+    scheme: bearer
+    in: header
+    header: Authorization
+    format: 'Bearer <API_KEY>'
+    docs: https://apidocs.pabbly.com/email-marketing/reference/guides/authentication
+  - id: connect-platform-bearer
+    api: pabbly:pabbly-connect-platform
+    type: http
+    scheme: bearer
+    in: header
+    header: Authorization
+    format: 'Bearer pk_live_...'
+    key_prefix: pk_
+    additional_required_headers:
+      - name: x-user-email
+        description: >-
+          Email of the end customer the call acts on. Required on every
+          connection method; the SDK throws before sending if it is missing.
+    posture: >-
+      Backend-to-backend only. The SDK states the tenant key and vended tokens
+      must never reach a browser, a mobile app or an LLM context.
+    source: npm @pabbly/connect-platform@1.0.0 (index.js)
+not_supported:
+  - oauth2
+  - openIdConnect
+  - mutualTLS
+  - apiKey-in-query
+  - request-signing
+observations:
+  - >-
+    Credentials are account-wide and unscoped — there is no permissions or scope
+    surface published for any Pabbly API, so a key grants whatever the account
+    can do. Pabbly's own docs say so: "Your credentials grant full access to your
+    account."
+  - >-
+    Basic-auth products send the secret on every request rather than exchanging
+    it for a short-lived token; there is no documented expiry or refresh.
+  - >-
+    Auth differs per product (Basic vs Bearer) with no shared identity layer,
+    so a multi-product integration carries several unrelated credentials.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

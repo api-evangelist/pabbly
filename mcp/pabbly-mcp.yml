@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://www.pabbly.com/how-to-use-pabbly-connect-mcp-server-step-by-step-guide/
+sources:
+  - https://www.pabbly.com/how-to-use-pabbly-connect-mcp-server-step-by-step-guide/
+  - https://forum.pabbly.com/threads/pabbly-connect-mcp-server-beta.28381/
+  - https://www.npmjs.com/package/pabbly-mcp-remote
+provider: Pabbly
+providerId: pabbly
+server:
+  name: Pabbly Connect MCP Server
+  product: Pabbly Connect
+  release_stage: beta
+  transport: sse
+  description: >-
+    Pabbly Connect exposes the action steps of a user's own automation workflows
+    as MCP tools. Inside Pabbly Connect the user marks an action step "Add to MCP
+    Server", names the tool (camelCase, no spaces) and writes its description;
+    Pabbly then hosts those tools behind an MCP server URL that the user copies
+    from Pabbly Connect MCP Settings and pastes into an MCP client such as Claude
+    Desktop. The tool set is therefore per-account and user-defined — there is no
+    fixed, provider-published catalog of tools to enumerate.
+deployment:
+  mode: both
+  endpoint: null
+  endpoint_note: >-
+    The remote endpoint is real and hosted by Pabbly, but it is minted PER
+    ACCOUNT inside Pabbly Connect (Settings -> MCP) and the provider publishes no
+    fixed URL. Pabbly's own guidance is that the URL "functions like a password",
+    so no endpoint is recorded here and none is guessed.
+  install: npm install -g pabbly-mcp-remote
+  invoke: pabbly-mcp-remote <your-mcp-server-url>
+  package: https://www.npmjs.com/package/pabbly-mcp-remote
+  auth: api-key
+  auth_note: >-
+    Authentication is carried by the secret MCP server URL itself; no separate
+    OAuth authorization server is published (every /.well-known/oauth-* probe
+    404d — see well-known/pabbly-well-known.yml).
+  verified: searched
+  verified_note: >-
+    Established from Pabbly's own step-by-step guide plus the first-party npm
+    package (author "Pabbly", repo github.com/pabbly-kamalkumar/pabbly-mcp-remote).
+    tools/list was NOT probed: there is no anonymous endpoint to probe.
+tools:
+  discovered: 0
+  note: >-
+    Tools are user-authored inside Pabbly Connect, so no provider-published tool
+    list exists. NOT derived from the REST APIs — the MCP surface projects Pabbly
+    Connect workflow actions, not the Subscription Billing / Hook / Chatflow /
+    Email REST operations documented at apidocs.pabbly.com.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

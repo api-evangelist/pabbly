@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/subscription-billing/reference/guides/overview
+sources:
+  - https://apidocs.pabbly.com/pabbly/subscription-billing/llms.txt
+  - https://apidocs.pabbly.com/pabbly/hook/llms.txt
+  - https://apidocs.pabbly.com/pabbly/chatflow/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-verification/llms.txt
+  - https://apidocs.pabbly.com/pabbly/email-marketing/llms.txt
+  - npm @pabbly/connect-platform@1.0.0
+provider: Pabbly
+providerId: pabbly
+format: proprietary
+rfc9457: false
+envelope:
+  documented: '{"success": false, "error": "A human-readable explanation"}'
+  fields:
+    - name: success
+      type: boolean
+      value: false
+    - name: error
+      type: string
+      description: Human-readable explanation. Not a stable machine identifier.
+  note: >-
+    The documented failure envelope carries prose only — there is no error code,
+    no type URI and no field pointer, so a client cannot branch on anything but
+    the HTTP status.
+status_classes:
+  - status: 200
+    meaning: Success
+  - status: 201
+    meaning: Success
+  - status: 400
+    title: Bad request
+    meaning: Missing or malformed parameters
+    remediation: Fix the request payload or query string; do not retry unchanged.
+  - status: 401
+    title: Unauthorized
+    meaning: Missing or invalid API credentials
+    remediation: >-
+      Regenerate the key pair from the account dashboard (Settings -> API
+      Settings) and re-send. Do not retry with the same credentials.
+  - status: 404
+    title: Not found
+    meaning: The resource does not exist
+    remediation: Verify the resource id; treat as terminal.
+  - status: 429
+    title: Too many requests
+    meaning: Rate limited
+    remediation: >-
+      Back off and retry. No limit, window or reset header is published — see
+      rate-limits/pabbly-rate-limits.yml.
+  - status: 5xx
+    title: Server error
+    meaning: Server-side failure
+    remediation: Retry with backoff (the only retry guidance Pabbly publishes).
+applies_to:
+  - pabbly:pabbly-subscriptions
+  - pabbly:pabbly-hook
+  - pabbly:pabbly-chatflow
+  - pabbly:pabbly-email-verification
+  - pabbly:pabbly-email-marketing
+note_shared: >-
+  The status table above is published identically in all five product overviews
+  at apidocs.pabbly.com.
+coded_errors:
+  api: pabbly:pabbly-connect-platform
+  source: npm @pabbly/connect-platform@1.0.0 (index.js CODE_TO_ERROR)
+  envelope_field: data.code
+  note: >-
+    The Connect Platform API is the only Pabbly surface with machine-readable
+    error codes, and they are documented only inside the SDK — not on the
+    developer portal, which does not cover this API at all.
+  codes:
+    - code: needs_reconnection
+      status: 401
+      title: Connection needs reconnection
+      action: Re-run the hosted connect flow for that customer; the stored grant is no longer usable.
+      retryable: false
+    - code: connection_deleted
+      status: 404
+      title: Connection deleted
+      action: The connection no longer exists; create a new request link.
+      retryable: false
+    - code: capability_disabled
+      status: 403
+      title: Capability disabled
+      action: The tenant key lacks the capability (e.g. `delete`); enable it on the tenant.
+      retryable: false
+    - code: rate_limited
+      status: 429
+      title: Rate limited
+      action: Honor the Retry-After header exposed as RateLimitedError.retryAfter.
+      retryable: true
+    - code: upstream_unavailable
+      status: 503
+      title: Upstream unavailable
+      action: Transient; the SDK auto-retries twice with exponential backoff (250ms base).
+      retryable: true
+gaps:
+  - >-
+    No error-code registry is published for the five documented REST APIs — only
+    six HTTP status classes and a prose message.
+  - >-
+    No application/problem+json (RFC 9457) anywhere on the surface.
+  - >-
+    Subscription Billing is a billing API but publishes no decline-code or
+    payment-failure code reference; failed payments surface only as the
+    "Payment Failure" webhook event and the POST /invoice/failedpayment/{invoice_id}
+    operation.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

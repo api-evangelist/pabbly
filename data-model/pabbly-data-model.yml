@@ -1,0 +1,314 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  derived from the 173 documented operations and their example payloads at
+  apidocs.pabbly.com (read via the per-product llms.txt documents and
+  Accept: text/markdown endpoint pages)
+provider: Pabbly
+providerId: pabbly
+note: >-
+  Derived from documented paths and worked example responses, not from an
+  OpenAPI document — Pabbly publishes none. Relationships are read from
+  id-bearing path parameters (e.g. GET /plans/{product_id}) and from id
+  reference fields in the example payloads (customer_id, subscription_id,
+  invoice_id). Field-level schemas are NOT reproduced here; only entities and
+  the references between them.
+identifiers:
+  style: opaque
+  format: 24-character hexadecimal (MongoDB ObjectId shape)
+  example_field_names:
+    - id
+    - customer_id
+    - subscription_id
+    - invoice_id
+    - product_id
+    - plan_id
+    - transaction_id
+    - addon_id
+    - connection_id
+  prefixed: false
+  note: >-
+    Ids carry no type prefix, so an id alone does not tell an agent what kind of
+    object it is. The docs show a placeholder "cus_example" in the auth examples,
+    but every real example payload returns an unprefixed hex id.
+domains:
+  - id: subscription-billing
+    api: pabbly:pabbly-subscriptions
+    base: https://payments.pabbly.com/api/v1
+    entities:
+      - name: Customer
+        operations: 8
+        path_root: /customer, /customers
+      - name: Subscription
+        operations: 14
+        path_root: /subscription, /subscriptions
+      - name: Product
+        operations: 5
+        path_root: /product, /products
+      - name: Plan
+        operations: 6
+        path_root: /plan, /plans
+      - name: Multiplan
+        operations: 5
+        path_root: /multiplans
+      - name: Coupon
+        operations: 4
+        path_root: /coupon, /coupons
+      - name: Invoice
+        operations: 8
+        path_root: /invoice, /invoices
+      - name: PaymentMethod
+        operations: 3
+        path_root: /paymentmethod, /paymentmethods
+      - name: Transaction
+        operations: 5
+        path_root: /transactions, /transaction, /refund
+      - name: Addon
+        operations: 5
+        path_root: /addon, /addons
+      - name: AddonCategory
+        operations: 5
+        path_root: /addoncategory, /addonlistcategory
+      - name: License
+        operations: 7
+        path_root: /products/{product_id}/licenses
+      - name: Commission
+        operations: 9
+        path_root: /commissions, /affiliate
+      - name: Credit
+        operations: 2
+        path_root: /subscription/credit
+      - name: CustomField
+        operations: 2
+        path_root: /customfields, /subscription/custom-fields
+      - name: CheckoutPage
+        operations: 2
+        path_root: /checkoutpage, /hostedpage
+      - name: ClientPortalSession
+        operations: 1
+        path_root: /portal_sessions
+      - name: PaymentGateway
+        operations: 1
+        path_root: /paymentgateways
+    relationships:
+      - from: Subscription
+        to: Customer
+        type: belongs_to
+        via: customer_id
+        evidence: POST /subscription/{customer_id}, GET /subscriptions/{customer_id}
+      - from: Customer
+        to: Subscription
+        type: has_many
+        via: customer_id
+        evidence: GET /subscriptions/{customer_id}
+      - from: Plan
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: GET /plans/{product_id}
+      - from: Product
+        to: Plan
+        type: has_many
+        via: product_id
+      - from: Coupon
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: POST /coupon/{product_id}, GET /coupon/{product_id}
+      - from: Addon
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: GET /addons/{product_id}
+      - from: AddonCategory
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: GET /addonlistcategory/{product_id}
+      - from: AddonCategory
+        to: Addon
+        type: has_many
+        via: addon_id
+        evidence: GET /addoncategory/{addon_id}
+      - from: License
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: /products/{product_id}/licenses
+      - from: Invoice
+        to: Customer
+        type: belongs_to
+        via: customer_id
+        evidence: GET /invoices/{customer_id}
+      - from: Invoice
+        to: Subscription
+        type: belongs_to
+        via: subscription_id
+        evidence: POST /invoices/create-metered/{subscription_id}
+      - from: Transaction
+        to: Invoice
+        type: belongs_to
+        via: invoice_id
+        evidence: GET /invoices/transactions/{invoice_id}
+      - from: Transaction
+        to: Customer
+        type: belongs_to
+        via: customer_id
+        evidence: GET /transactions/{customer_id}
+      - from: PaymentMethod
+        to: Customer
+        type: belongs_to
+        via: customer_id
+        evidence: GET /paymentmethods/{customer_id}
+      - from: Credit
+        to: Subscription
+        type: belongs_to
+        via: subscription_id
+        evidence: POST /subscription/credit/{subscription_id}/create
+      - from: CustomField
+        to: Plan
+        type: belongs_to
+        via: plan_id
+        evidence: GET /api/v1/customfields/{plan_id}
+      - from: CheckoutPage
+        to: Product
+        type: belongs_to
+        via: product_id
+        evidence: GET /checkoutpage/{product_id}
+      - from: ClientPortalSession
+        to: Customer
+        type: belongs_to
+        via: customer_id
+  - id: email-marketing
+    api: pabbly:pabbly-email-marketing
+    base: https://emails.pabbly.com/api/v2
+    entities:
+      - name: Subscriber
+        operations: 9
+      - name: Campaign
+        operations: 5
+      - name: SubscriberList
+        operations: 8
+      - name: DeliveryServer
+        operations: 1
+      - name: CustomField
+        operations: 1
+    relationships:
+      - from: Subscriber
+        to: SubscriberList
+        type: has_many
+        via: listId
+        evidence: POST /lists/add-subscriber, POST /lists/move-subscriber
+      - from: SubscriberList
+        to: Subscriber
+        type: has_many
+        via: listId
+      - from: Campaign
+        to: SubscriberList
+        type: has_many
+        via: list
+        evidence: POST /campaigns/send-to-list
+  - id: chatflow
+    api: pabbly:pabbly-chatflow
+    base: https://chatflow.pabbly.com/api/v1
+    entities:
+      - name: Message
+        operations: 18
+      - name: Template
+        operations: 2
+      - name: Broadcast
+        operations: 4
+      - name: Contact
+        operations: 5
+      - name: Catalog
+        operations: 2
+      - name: Media
+        operations: 1
+      - name: Tag
+        operations: 1
+    relationships:
+      - from: Message
+        to: Template
+        type: belongs_to
+        via: template name/id
+        evidence: GET /templates/{identifier}
+      - from: Contact
+        to: ContactList
+        type: has_many
+        via: list
+        evidence: GET /contacts/lists
+      - from: Catalog
+        to: Product
+        type: has_many
+        via: catalogId
+        evidence: GET /catalogs/{catalogId}/products
+  - id: hook
+    api: pabbly:pabbly-hook
+    base: https://hook.pabbly.com/api/v1
+    entities:
+      - name: Folder
+        operations: 5
+      - name: Connection
+        operations: 7
+      - name: Transformation
+        operations: 5
+      - name: Request
+        operations: 2
+      - name: Event
+        operations: 2
+    relationships:
+      - from: Connection
+        to: Folder
+        type: belongs_to
+        via: folderId
+        evidence: PUT /folders/move-connection
+      - from: Folder
+        to: Connection
+        type: has_many
+        via: folderId
+      - from: Request
+        to: Connection
+        type: belongs_to
+        via: connectionId
+      - from: Event
+        to: Connection
+        type: belongs_to
+        via: connectionId
+  - id: connect-platform
+    api: pabbly:pabbly-connect-platform
+    base: https://connect.pabbly.com/platform/v1
+    source: npm @pabbly/connect-platform@1.0.0
+    entities:
+      - name: App
+        operations: 2
+      - name: Connection
+        operations: 5
+    relationships:
+      - from: Connection
+        to: App
+        type: belongs_to
+        via: appId
+      - from: Connection
+        to: EndCustomer
+        type: belongs_to
+        via: x-user-email
+        note: >-
+          The customer is not an addressable resource — it is an email string
+          carried in a required header on every connection call.
+  - id: email-verification
+    api: pabbly:pabbly-email-verification
+    base: https://verify.pabbly.com/api/v1
+    entities:
+      - name: EmailVerification
+        operations: 1
+    relationships: []
+cross_domain:
+  - note: >-
+      The six APIs share no identifier space and no cross-product references. A
+      Subscription Billing customer_id has no relationship to a Chatflow contact
+      or an Email Marketing subscriber; nothing in the documented surface joins
+      them. Pabbly Connect is the intended join, and it is not one of the six
+      documented REST APIs.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

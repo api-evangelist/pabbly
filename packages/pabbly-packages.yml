@@ -1,0 +1,75 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  npm registry search + registry.npmjs.org metadata; PyPI, RubyGems and Packagist
+  searched and returned nothing first-party
+provider: Pabbly
+providerId: pabbly
+packages:
+  - language: javascript
+    registry: npm
+    name: '@pabbly/connect-platform'
+    url: https://www.npmjs.com/package/@pabbly/connect-platform
+    install: npm install @pabbly/connect-platform
+    official: true
+    official_evidence: >-
+      Published under the @pabbly npm scope; wraps the Pabbly Connect Platform
+      API at https://connect.pabbly.com/platform/v1.
+    version: 1.0.0
+    published: '2026-06-13'
+    covers_api: pabbly:pabbly-connect-platform
+    note: >-
+      Only release to date; first published 2026-06-13. Its documented "full
+      guide" link (a forum.pabbly.com thread) now returns HTTP 404, so the SDK
+      ships without reachable narrative documentation.
+  - language: javascript
+    registry: npm
+    name: pabbly-mcp-remote
+    url: https://www.npmjs.com/package/pabbly-mcp-remote
+    install: npm install -g pabbly-mcp-remote
+    official: true
+    official_evidence: >-
+      package.json author is "Pabbly"; README points at
+      github.com/pabbly-kamalkumar/pabbly-mcp-remote, and it is published by the
+      same npm account that owns the @pabbly scope.
+    version: 1.0.1
+    published: '2025-04-09'
+    covers_api: pabbly:pabbly-connect-mcp
+    note: >-
+      stdio<->SSE bridge that lets Claude Desktop and other stdio MCP clients
+      reach the hosted Pabbly Connect MCP server. Last published 2025-04-09,
+      more than a year before the @pabbly SDK scope was created.
+registries_checked:
+  - registry: npm
+    result: 2 first-party packages found
+  - registry: pypi
+    result: none
+    note: pypi.org/pypi/pabbly/json and /pabbly-api/json both returned 404
+  - registry: rubygems
+    result: none
+    note: rubygems.org search for "pabbly" returned an empty result set
+  - registry: packagist
+    result: none
+    note: >-
+      only third-party wrappers (krishnaitbpl/adapter-pabbly); no Pabbly-owned
+      vendor namespace
+  - registry: maven-central
+    result: none
+  - registry: nuget
+    result: none
+  - registry: crates.io
+    result: none
+  - registry: pkg.go.dev
+    result: none
+findings:
+  official_count: 2
+  languages:
+    - javascript
+  note: >-
+    Pabbly documents five REST APIs and 173 endpoints at apidocs.pabbly.com but
+    ships no client library for any of them. The only first-party SDK covers a
+    sixth API (Connect Platform) that is not documented on the developer portal
+    at all.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

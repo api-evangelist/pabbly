@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/
+provider: Pabbly
+providerId: pabbly
+versioning:
+  scheme: uri-path
+  docs: https://apidocs.pabbly.com/
+  apis:
+    - api: pabbly:pabbly-subscriptions
+      current: v1
+      base: https://payments.pabbly.com/api/v1
+    - api: pabbly:pabbly-hook
+      current: v1
+      base: https://hook.pabbly.com/api/v1
+    - api: pabbly:pabbly-chatflow
+      current: v1
+      base: https://chatflow.pabbly.com/api/v1
+    - api: pabbly:pabbly-email-verification
+      current: v1
+      base: https://verify.pabbly.com/api/v1
+    - api: pabbly:pabbly-email-marketing
+      current: v2
+      base: https://emails.pabbly.com/api/v2
+    - api: pabbly:pabbly-connect-platform
+      current: v1
+      base: https://connect.pabbly.com/platform/v1
+  note: >-
+    Email Marketing is on v2 while every other product is on v1. No v1 Email
+    Marketing surface is documented and no migration note is published, so the
+    version bump is visible only as a different path segment.
+  anomaly:
+    detail: >-
+      Three Subscription Billing operations are documented with the version
+      segment baked into the path rather than inherited from the v1 base —
+      POST /api/v2/getdashboardstats and GET /api/v1/customfields/{plan_id} —
+      which means the documented base URL does not compose cleanly for them.
+    source: https://apidocs.pabbly.com/subscription-billing/reference
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  evidence: >-
+    No deprecation or sunset policy is published on apidocs.pabbly.com,
+    www.pabbly.com or buy.pabbly.com, and no endpoint in the 173 documented
+    operations is marked deprecated.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: null
+  published: false
+  evidence: >-
+    Third-party sources reference a Freshping status page at status.pabbly.com,
+    but the hostname does not resolve — DNS returned NXDOMAIN on 2026-08-13
+    ("Could not resolve host: status.pabbly.com"). No status page is reachable
+    from any Pabbly property, so no StatusPage pointer is emitted.
+support:
+  forum: https://forum.pabbly.com/
+  contact: https://www.pabbly.com/contact-us/
+  note: >-
+    forum.pabbly.com is live, but the older forum was not carried over — threads
+    linked from first-party artifacts now 410/404, including the integration
+    guide that npm @pabbly/connect-platform names as its documentation.
+roadmap:
+  url: https://pabbly.featureos.app/roadmap
+  platform: FeatureOS
+  columns:
+    - Under Review
+    - In Progress
+    - Live
+    - Hold
+  note: >-
+    Public feedback and roadmap board. Board items render client-side and were
+    not readable anonymously; the board itself returned HTTP 200.
+changelog:
+  url: https://pabbly.featureos.app/changelog
+  detail: see changelog/pabbly-changelog.yml
+observed_decay:
+  - item: developer.pabbly.com
+    status: NXDOMAIN
+    note: >-
+      The developer portal this profile previously recorded no longer resolves.
+      The live developer surface is apidocs.pabbly.com.
+    checked: '2026-08-13'
+  - item: status.pabbly.com
+    status: NXDOMAIN
+    checked: '2026-08-13'
+  - item: >-
+      forum.pabbly.com/threads/embed-pabbly-connect-as-your-connection-manager-...36672/
+    status: 404
+    note: The documentation link published inside the first-party npm SDK.
+    checked: '2026-08-13'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

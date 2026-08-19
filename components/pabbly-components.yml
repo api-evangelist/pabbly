@@ -1,0 +1,77 @@
+generated: '2026-08-13'
+method: searched
+source: https://apidocs.pabbly.com/subscription-billing/reference
+provider: Pabbly
+providerId: pabbly
+summary: >-
+  Pabbly ships no client-side component library — there is no npm element pack,
+  no web component and no embeddable JS SDK. What it does ship is a set of
+  API-minted HOSTED surfaces: a customer takes over from your application at a
+  Pabbly-hosted URL, completes the flow there, and returns. Every one of these is
+  created or fetched through an API operation, which is why they are catalogued
+  here rather than in packages/.
+families:
+  - name: Hosted checkout
+    kind: hosted-page
+    api: pabbly:pabbly-subscriptions
+    operations:
+      - method: GET
+        path: /checkoutpage/{product_id}
+        title: Get Checkout Page By Product Id
+      - method: GET
+        path: /hostedpage
+        title: Get Hosted Page Data
+    description: >-
+      Pabbly-hosted checkout pages, one per product, with the post-purchase
+      thank-you page readable back through GET /hostedpage using the hostedpage
+      token appended to the return URL.
+  - name: Client portal
+    kind: hosted-session
+    api: pabbly:pabbly-subscriptions
+    operations:
+      - method: POST
+        path: /portal_sessions/
+        title: Create Client Portal API Session
+    description: >-
+      Self-service customer portal for managing an existing subscription. The
+      API mints a session; the customer is redirected into a Pabbly-hosted UI.
+  - name: Card capture
+    kind: hosted-page
+    api: pabbly:pabbly-subscriptions
+    operations:
+      - method: GET
+        path: /add_card_url/{customer_id}
+        title: Get Add Card URL
+    description: >-
+      Returns a hosted URL where a customer enters card details, keeping card
+      data off the integrator's systems — consistent with Pabbly's published
+      claim that it stores no credit card information.
+  - name: Hosted connection flow
+    kind: hosted-page
+    api: pabbly:pabbly-connect-platform
+    operations:
+      - method: POST
+        path: /connections/request-link
+        title: Create Request Link
+    description: >-
+      Returns { connection_id, request_token, request_link, expires_at, app }.
+      The integrator opens request_link in a popup so the end customer completes
+      OAuth or credential entry on Pabbly's page, then polls
+      GET /connections/{id} until status leaves `pending`.
+    source: npm @pabbly/connect-platform@1.0.0
+  - name: Form embeds
+    kind: hosted-page
+    product: Pabbly Form Builder
+    description: >-
+      Pabbly Form Builder publishes shareable hosted form URLs
+      (forms.pabbly.com/form/share/<id>) — Pabbly uses one itself as the intake
+      for its own vulnerability disclosure program. No documented API covers
+      form creation or embedding, so this family is product-only.
+    api: null
+not_found:
+  - npm element / web-component package
+  - embeddable dashboard SDK
+  - drop-in JS widget with a documented loader script
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

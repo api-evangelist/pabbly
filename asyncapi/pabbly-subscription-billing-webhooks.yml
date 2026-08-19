@@ -1,0 +1,111 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.pabbly.com/subscriptions/docs/webhooks/
+provider: Pabbly
+providerId: pabbly
+api: pabbly:pabbly-subscriptions
+type: webhook-catalog
+asyncapi_published: false
+asyncapi_note: >-
+  Pabbly publishes no AsyncAPI document. /asyncapi.yaml and /asyncapi.json on the
+  docs and API hosts return the SPA HTML shell, not a spec. This file captures
+  the webhook surface Pabbly documents in prose so the event catalog is at least
+  machine-readable here; it is NOT an AsyncAPI document and is not wired as one.
+delivery:
+  style: http-callback
+  method: POST
+  content_type: application/json
+  destination: subscriber-supplied URL, configured per event in the Pabbly Subscriptions dashboard
+  description: >-
+    "An HTTP callback / event-notification via HTTP POST" — Pabbly transmits the
+    event data in JSON to the third-party URL configured for that event.
+security:
+  signature: null
+  hmac: false
+  shared_secret: false
+  replay_protection: false
+  note: >-
+    No signature header, HMAC scheme, timestamp or replay-window is documented.
+    A receiver has no published way to verify that a payload came from Pabbly.
+retries:
+  documented: false
+event_count: 23
+events:
+  - name: Customer Create
+    group: customer
+    description: When a customer is created
+  - name: Customer Delete
+    group: customer
+    description: When a customer is deleted
+  - name: Subscription Create
+    group: subscription
+    description: When a subscription is created
+  - name: Subscription Activate
+    group: subscription
+    description: When a subscription is activated
+  - name: Subscription Upgrade
+    group: subscription
+    description: When a subscription is upgraded
+  - name: Subscription Downgrade
+    group: subscription
+    description: When a subscription is downgraded
+  - name: Subscription Renew
+    group: subscription
+    description: When a subscription is renewed
+  - name: Subscription Cancel
+    group: subscription
+    description: When a subscription is canceled
+  - name: Subscription Cancel Scheduled
+    group: subscription
+    description: When cancellation is scheduled for the end of the billing cycle
+  - name: Subscription Expire
+    group: subscription
+    description: When a subscription expires
+  - name: Subscription Delete
+    group: subscription
+    description: When a subscription is deleted
+  - name: Subscription Trial Expired
+    group: subscription
+    description: When a subscription's trial expires
+  - name: Successful Payments
+    group: payment
+    description: When payment is received
+  - name: Payment Failure
+    group: payment
+    description: When payment processing encounters an error
+  - name: Payment Refund
+    group: payment
+    description: When a customer requests a refund
+  - name: Create Invoice
+    group: invoice
+    description: When an invoice is created
+  - name: Pending Invoice
+    group: invoice
+    description: When an invoice is pending due to unpaid recurring fees
+  - name: Dunning Invoice
+    group: invoice
+    description: When an invoice is overdue
+  - name: Create Credit
+    group: credit
+    description: When a credit is created
+  - name: Close Credit
+    group: credit
+    description: When a credit is closed
+  - name: Commission Create
+    group: affiliate
+    description: When a commission is created
+  - name: Affiliate Request
+    group: affiliate
+    description: When an affiliate request is made
+related_products:
+  - name: Pabbly Hook
+    api: pabbly:pabbly-hook
+    relationship: >-
+      Pabbly Hook is a separate product that RECEIVES webhooks — a gateway that
+      logs, filters, transforms and forwards inbound webhook requests. Its API
+      (21 operations across folders, connections, transformations, requests and
+      events) manages that gateway; it does not describe events Pabbly emits.
+    docs: https://apidocs.pabbly.com/hook/reference
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
