@@ -33,6 +33,19 @@ tags:
   - Subscription Billing
   - Billing
   - Payments
+  - Webhook
+  - Messaging
+  - WhatsApp
+  - Email Verification
+  - Forms
+  - No-Code
+  - Software-as-a-Service
+tags_raw:
+  - Automation
+  - Email Marketing
+  - Subscription Billing
+  - Billing
+  - Payments
   - Webhooks
   - Messaging
   - WhatsApp
@@ -57,6 +70,11 @@ apis:
     humanURL: https://apidocs.pabbly.com/subscription-billing/reference
     baseURL: https://payments.pabbly.com/api/v1
     tags:
+      - Billing
+      - Payments
+      - Subscription
+      - Invoicing
+    tags_raw:
       - Billing
       - Payments
       - Subscriptions
@@ -86,6 +104,10 @@ apis:
     humanURL: https://apidocs.pabbly.com/hook/reference
     baseURL: https://hook.pabbly.com/api/v1
     tags:
+      - Webhook
+      - Automation
+      - Integration
+    tags_raw:
       - Webhooks
       - Automation
       - Integration
@@ -180,6 +202,11 @@ apis:
     humanURL: https://www.npmjs.com/package/@pabbly/connect-platform
     baseURL: https://connect.pabbly.com/platform/v1
     tags:
+      - Automation
+      - Authentication
+      - Integration
+      - Connectivity
+    tags_raw:
       - Automation
       - OAuth
       - Integration
