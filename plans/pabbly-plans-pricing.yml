@@ -317,3 +317,114 @@ notes:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - one-time
+  - subscription
+  units:
+  - active-user
+  - credit
+  - message
+  - request
+  plans:
+  - name: Pabbly Plus — FREE
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - active-user
+    - credit
+    - message
+    - other
+    - request
+    periods:
+    - month
+  - name: Pabbly Plus — UNLIMITED (yearly billing)
+    access: paid
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pabbly Plus — UNLIMITED (2-year billing)
+    access: paid
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pabbly Plus — UNLIMITED (3-year billing)
+    access: paid
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Pabbly Connect — Free
+    access: freemium
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Pabbly Connect — Standard
+    access: paid
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Pabbly Connect — Unlimited
+    access: paid
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Pabbly Connect — Ultimate (one-time lifetime)
+    access: other
+    model: one-time
+    model_how: stated
+    units:
+    - request
+    periods:
+    - month
+  - name: Pabbly Chatflow — Standard
+    access: paid
+    model: free
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Pabbly Chatflow — Pro
+    access: paid
+    model: free
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Pabbly Chatflow — Unlimited
+    access: paid
+    model: free
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Pabbly Subscription Billing — Standard (one-time lifetime)
+    access: other
+    model: one-time
+    model_how: stated
+    units: []
+    periods: []
+  - name: Pabbly Subscription Billing — Ultimate (one-time lifetime)
+    access: other
+    model: one-time
+    model_how: stated
+    units: []
+    periods: []
