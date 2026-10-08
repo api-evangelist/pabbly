@@ -247,6 +247,8 @@ apis:
       - type: Documentation
         url: https://www.pabbly.com/how-to-use-pabbly-connect-mcp-server-step-by-step-guide/
 common:
+  - type: FinOps
+    url: finops/pabbly-finops.yml
   - type: Website
     url: https://www.pabbly.com/
   - type: DeveloperPortal
