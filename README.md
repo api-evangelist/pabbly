@@ -1,4 +1,4 @@
-# Pabbly (pabbly)
+# Pabbly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,56 +64,136 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Pabbly provides subscription billing, email marketing, form building, and workflow automation tools. The Pabbly API allows integration with subscription management, email, and automation features.
+Pabbly is an Indian SaaS company selling a suite of marketing and sales software as one-time lifetime deals as well as monthly plans: Pabbly Connect (workflow automation), Pabbly Subscription Billing (recurring billing and invoicing), Pabbly Email Marketing, Pabbly Chatflow (WhatsApp Business messaging), Pabbly Form Builder, Pabbly Hook (an inbound webhook gateway) and Pabbly Email Verification. Its developer platform at apidocs.pabbly.com documents five REST APIs and 173 endpoints, all keyed on HTTP Basic or Bearer credentials generated from the account dashboard, plus a sixth Connect Platform API distributed only through a first-party npm SDK. Pabbly Subscription Billing emits 23 webhook event types, and Pabbly Connect ships a beta hosted MCP server that exposes a customer's own workflow actions as agent tools.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/pabbly/refs/heads/main/apis.yml)
+**Areas:** Automation · Email Marketing · Subscription Billing · Billing · Payments · Webhook · Messaging · WhatsApp · Email Verification · Forms · No-Code · Software-as-a-Service
 
-## Scope
+## Pabbly on APIs.io
 
-- **Type:** Index 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+Everything profiled for Pabbly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pabbly/](https://apis.io/providers/pabbly/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (7)
 
- - Subscription Billing, Email Marketing, Automation, API
+- [Pabbly Subscription Billing API](https://apis.io/apis/pabbly/pabbly-subscriptions/) — REST API for Pabbly Subscription Billing — 95 documented operations across customers, subscriptions, products, plans, multiplans, coupons, invoices, payment…
+- [Pabbly Hook API](https://apis.io/apis/pabbly/pabbly-hook/) — REST API for Pabbly Hook, an inbound webhook gateway that receives, logs, filters, transforms and forwards webhook requests. 21 documented operations across…
+- [Pabbly Chatflow API](https://apis.io/apis/pabbly/pabbly-chatflow/) — REST API for Pabbly Chatflow, a WhatsApp Business messaging platform. 33 documented operations covering 18 message shapes on a single POST /messages…
+- [Pabbly Email Marketing API](https://apis.io/apis/pabbly/pabbly-email-marketing/) — REST API for Pabbly Email Marketing — 23 documented operations across subscribers (upsert semantics on create), subscriber lists and segments, campaigns…
+- [Pabbly Email Verification API](https://apis.io/apis/pabbly/pabbly-email-verification/) — REST API for Pabbly Email Verification. A single operation, POST /email-lists/verify-single, returning a deliverability verdict plus accept_all, disposable,…
+- [Pabbly Connect Platform API](https://apis.io/apis/pabbly/pabbly-connect-platform/) — Backend-to-backend API that lets a product use Pabbly Connect as its connection manager — search a catalog of 1,000+ apps, mint hosted OAuth or credential…
+- [Pabbly Connect MCP Server](https://apis.io/apis/pabbly/pabbly-connect-mcp/) — Beta hosted MCP server that exposes a Pabbly Connect user's own workflow action steps as agent tools. Tools are authored inside Pabbly Connect ("Add to MCP…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-16 
-- **Modified:** 2026-04-28 
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### AsyncAPI (1)
 
-### Pabbly Subscriptions API
-API for managing subscriptions, billing, plans, and customers in Pabbly Subscriptions.
+Event-driven and webhook contracts.
 
-**Human URL:** [https://developer.pabbly.com/](https://developer.pabbly.com/)
+- [Pabbly Subscription Billing Webhooks](https://apis.io/asyncapis/pabbly/pabbly-subscription-billing-webhooks/)
 
+#### MCP servers (1)
 
-#### Tags:
+Model Context Protocol servers that expose the API to agents.
 
- - Subscriptions, Billing, Payments
+- [Pabbly Connect MCP Server](https://apis.io/servers/pabbly/pabbly-connect-mcp-server/)
 
-#### Properties
+#### Security (4)
 
-- [Documentation](https://developer.pabbly.com/)
-- [Reference](https://developer.pabbly.com/reference)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Pabbly Authentication](https://apis.io/security/pabbly/pabbly-authentication/)
+- [Pabbly Domain Security](https://apis.io/security/pabbly/pabbly-domain-security/)
+- [Pabbly Trust Center](https://apis.io/security/pabbly/pabbly-trust-center/)
+- [Pabbly Vulnerability Disclosure](https://apis.io/security/pabbly/pabbly-vulnerability-disclosure/)
 
-- [Portal](https://developer.pabbly.com/)
-- [Documentation](https://developer.pabbly.com/)
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pabbly Plans Pricing](https://apis.io/plans/pabbly/pabbly-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pabbly Rate Limits](https://apis.io/rate-limits/pabbly/pabbly-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Pabbly Finops](https://apis.io/finops/pabbly/pabbly-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.pabbly.com/)
-- [Sign Up](https://www.pabbly.com/register/)
-- [Login](https://www.pabbly.com/login/)
-- [Pricing](https://www.pabbly.com/pricing/)
-- [Support](https://www.pabbly.com/support/)
-- [Terms of Service](https://www.pabbly.com/terms-conditions/)
-- [Privacy Policy](https://www.pabbly.com/privacy-policy/)
+- [Documentation](https://apidocs.pabbly.com/)
+- [Getting started](https://apidocs.pabbly.com/subscription-billing/reference/guides/overview)
+- [API reference](https://apidocs.pabbly.com/subscription-billing/reference)
+- [Pricing](https://buy.pabbly.com/pabbly-plus/)
+- [Sign up](https://accounts.pabbly.com/signup)
+- [Support](https://www.pabbly.com/contact-us/)
+- [Blog](https://www.pabbly.com/blog/)
+- [Security](https://www.pabbly.com/security-vulnerability-disclosure/)
+- [Compliance](https://www.pabbly.com/security/)
+- [Terms of service](https://www.pabbly.com/terms-conditions/)
+- [Privacy policy](https://www.pabbly.com/privacy-policy/)
+- [GitHub](https://github.com/Pabbly)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 53.2** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 39.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 68.5 |
+| Access clarity | 85.5 |
+
+**Agent readiness 29.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 32.1** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pabbly/](https://apis.io/providers/pabbly/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Pabbly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pabbly/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
