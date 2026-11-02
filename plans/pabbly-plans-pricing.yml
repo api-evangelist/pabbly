@@ -1,0 +1,110 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://buy.pabbly.com/pabbly-plus/
+sources:
+- https://buy.pabbly.com/pabbly-plus/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T161713
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Monthly
+published: true
+note: Bundle pricing page for Pabbly Plus; shows a Black Friday USD/year offer plus INR monthly/yearly/3-yearly
+  plans. Page also lists comparison prices for replaced tools (e.g. $99/mo) and a '$99' bundle claim.
+  Checkout snippet shows 'Pay $59'. 5% discount code SAVEBIG mentioned.
+plan_count: 5
+plans:
+- name: Black Friday Pabbly Plus (first 100 seats)
+  price_text: $799 /year
+  price: 799
+  currency: USD
+  period: year
+  unit: seat
+  included_quota: Access to all Pabbly applications
+- name: Pabbly Plus regular price
+  price_text: $1,428 /year
+  price: 1428
+  currency: USD
+  period: year
+  unit: seat
+- name: Monthly
+  price_text: ₹ 12,999 /mo
+  price: 12999
+  currency: INR
+  period: month
+  unit: subscription
+  included_quota: Access All Pabbly Apps; unlimited tasks, credits, revenue, subscribers, forms, apps,
+    units, projects, events (fair usage policy applicable)
+- name: Yearly - SAVE 12%
+  price_text: ₹ 11,199 /mo
+  price: 11199
+  currency: INR
+  period: month
+  unit: subscription
+  included_quota: 'Access All Pabbly Apps; You save: ₹ 21,600.00'
+- name: 3 Yearly - SAVE 25%
+  price_text: ₹ 9,299 /mo
+  price: 9299
+  currency: INR
+  period: month
+  unit: subscription
+  included_quota: 'Access All Pabbly Apps; You save: ₹ 133,200.00'
+rate_limit_statements:
+- Fair usage policy applicable.
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - seat
+  - subscription
+  units:
+  - period
+  - seat
+  plans:
+  - name: Black Friday Pabbly Plus (first 100 seats)
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - year
+  - name: Pabbly Plus regular price
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - year
+  - name: Monthly
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Yearly - SAVE 12%
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: 3 Yearly - SAVE 25%
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
